@@ -1,17 +1,22 @@
-# Getting started: MPCDF Raven
+# Getting started: MPCDF Raven #
 
 This tutorial is written for the MPCDF Raven users from the MPI of Animal Behavior. It focuses on using R on Raven and provides specific instructions on how to run jobs that require popular spatio-temporal R packages. This tutorial has been put together and is maintained by the [Animal-Environment Interactions research group](https://www.ab.mpg.de/safi).
 
 The Raven user guide can be found [here](https://docs.mpcdf.mpg.de/doc/computing/raven-user-guide.html#login)
 
-# Step 1: Create an account #
+## Overview of the workflow ##
+add text here ;)
+
+To make the whole process more enjoyable for yourself, have a look at these tutorials on [directory management in Unix](https://www.tutorialspoint.com/unix/unix-directories.htm) and [basics of shell scripting](https://www.tutorialspoint.com/unix/unix-what-is-shell.htm) if these topics are new to you.
+
+## Step 1: Create an account ##
 
 1. Go to https://selfservice.mpcdf.mpg.de/register/antrag.php?lang=en
 2. Select MPI of Animal Behavior
 3. Pick one person to approve your application
 
 
-# Step 2: Set up Two-factor authentication (2FA)
+## Step 2: Set up Two-factor authentication (2FA) ##
 
 1. Install a 2FA app on your mobile phone (e.g. Aegis Authenticator, andOTP, FreeOTP, etc.) 
 2. When using the app for the first time, read the QR code available here to connect to the cluster:
@@ -19,7 +24,7 @@ https://selfservice.mpcdf.mpg.de/index.php?r=security
 
 Find more info [here](https://docs.mpcdf.mpg.de/faq/2fa.html)
 
-# Step 3: Log in #
+## Step 3: Log in ##
 
 **If on the MPI network**
 (or using a VPN to connect to one. this is required for the Bücklestraße or uni Konstanz), open the terminal and type:
@@ -50,7 +55,7 @@ This is your home directory ``` $HOME ```, i.e. your default working directory w
 
 This directory is designed for batch jobs. The compete path is ```/raven/ptmp/username/ ```. Files in this directory are not backed up and will be removed if not accessed for more than 12 weeks. There is no size limit on this directory, so that the user can manage their data according to their needs. Users are required to remove all files that are not currently used. A best practice is to move your output files to your ``` /u ``` directory and then to your local machine as soon as your batch job is complete. This is done in the example files accompanying this tutorial.
 
-# Step 4: Transfer your files #
+## Step 4: Transfer your files ##
 
 Raven does not have access to the files on your local machine. You need to copy the files that you need for your job (e.g. input files, scripts, etc.) to your ``` /u `` directory on Raven. 
 
@@ -60,7 +65,7 @@ From your **local terminal**, use the shell function copy ``` cp ``` or secure c
 scp path_to_file_on_local_machine username@raven.mpcdf.mpg.de:/raven/u/username/
 ```
 
-# Step 5: Load the required software packages and test your code #
+## Step 5: Load the required software packages and test your code ##
 
 MPCDF uses environment modules to provide software packages and enable using different software versions. No modules are automatically loaded, so load the modules that require using the command ``` module load package_name/version```. For example, load the R module as follows:
 ```sh
@@ -101,7 +106,7 @@ screen ???? # detach or use ctrl+AD
  install.packages("move")
  ```
  
- # Step 6: Prepare your slurm file #
+ ## Step 6: Prepare your slurm file ##
  
  
  Overview of the available per-job resources on Raven:
@@ -125,7 +130,7 @@ screen ???? # detach or use ctrl+AD
    ---------------------------------------------------------------------------------------------
 ```
 
- # Step 7: Submit your job #
+ ## Step 7: Submit your job ##
  
  ```sh
  

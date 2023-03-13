@@ -1,6 +1,6 @@
 # Getting started: MPCDF Raven
 
-This tutorial is written for the MPCDF Raven users from the MPI of Animal Behavior. It focuses on using R on Raven and provides specific instructions on how to run jobs that require popular spatio-temporal R packages. This tutorial has been put together and is maintained by the Animal-Environment Interactions research group.
+This tutorial is written for the MPCDF Raven users from the MPI of Animal Behavior. It focuses on using R on Raven and provides specific instructions on how to run jobs that require popular spatio-temporal R packages. This tutorial has been put together and is maintained by the [Animal-Environment Interactions research group] (https://www.ab.mpg.de/safi).
 
 The Raven user guide can be found [here](https://docs.mpcdf.mpg.de/doc/computing/raven-user-guide.html#login)
 

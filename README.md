@@ -59,3 +59,76 @@ From your **local terminal**, use the shell function copy ``` cp ``` or secure c
 ```sh
 scp path_to_file_on_local_machine username@raven.mpcdf.mpg.de:/raven/u/username/
 ```
+
+# Step 5: Load the required software packages and test your code #
+
+MPCDF uses environment modules to provide software packages and enable using different software versions. No modules are automatically loaded, so load the modules that require using the command ``` module load package_name/version```. For example, load the R module as follows:
+```sh
+module load R/4.2
+```
+
+Some other useful module commands:
+```sh
+module avail # see all available modules
+find-module R # to locate modules and its dependencies
+module avail R # see all available versions
+module load R # loads the default version of R
+module unload R # unload R
+module purge # unload all currently loaded modules
+module show R # see details of the module
+module list # shows all currently loaded modules
+```
+Before going ahead and starting R, open a screen. A screen will allow you to go back to your last instance in case your connection to Raven is interrupted, your terminal window closes, etc. Here are some useful screen related commands:
+```sh
+screen -S my_screen_name # open a new screen
+screen -r my_screen_name # open already existing (detached) screen 
+screen -list # see a list of created screens 
+screen -d -r my_screen_name # open a screen that is still attached
+screen -S my_screen_name -X quit  # kill a screen or use ctrl+AK
+screen ???? # detach or use ctrl+AD
+```
+
+ Now, create a new screen and open R to test your code:
+ ```sh
+ screen -S new_R_screen
+ R
+ ```
+ 
+ Once in R, you can test your code to make sure that you can install the necessary libraries, read in your file, and overall make sure that your code (or a small version of it) works on the cluster. You will then have more confident in your code before submitting a batch job using the slurm batch system.
+ 
+ ```R
+ install.packages("tidyverse")
+ install.packages("move")
+ ```
+ 
+ # Step 6: Prepare your slurm file #
+ 
+ 
+ Overview of the available per-job resources on Raven:
+```
+
+    Job type          Max. CPUs            Number of GPUs   Max. Memory      Number     Max. Run
+                      per Node               per node        per Node       of Nodes      Time
+   =============================================================================================
+    shared    cpu     36 / 72  in HT mode                     120 GB          < 1       24:00:00
+    ............................................................................................
+                      18 / 36  in HT mode        1            125 GB          < 1       24:00:00
+    shared    gpu     36 / 72  in HT mode        2            250 GB          < 1       24:00:00
+                      54 / 108 in HT mode        3            375 GB          < 1       24:00:00
+   ---------------------------------------------------------------------------------------------
+                                                              240 GB         1-360      24:00:00
+    exclusive cpu     72 / 144 in HT mode                     500 GB         1-64       24:00:00
+                                                             2048 GB         1-4        24:00:00
+    ............................................................................................
+    exclusive gpu     72 / 144 in HT mode        4            500 GB         1-80       24:00:00
+    exclusive gpu bw  72 / 144 in HT mode        4            500 GB         1-16       24:00:00
+   ---------------------------------------------------------------------------------------------
+```
+
+ # Step 7: Submit your job #
+ 
+ ```sh
+ 
+ sbatch your_slrm_script.slrm
+ 
+ ```

@@ -54,7 +54,7 @@ This directory is designed for batch jobs. The compete path is ```/raven/ptmp/us
 
 Raven does not have access to the files on your local machine. You need to copy the files that you need for your job (e.g. input files, scripts, etc.) to your ``` /u `` directory on Raven. 
 
-From your **local terminal**, use the shell function copy ``` cp ``` or secury copy ```scp``` to move your files to Raven. After each copying attempt, you will be prompted to enter your MPCDF password and the 2FA token.
+From your **local terminal**, use the shell function copy ``` cp ``` or secure copy ```scp``` to move your files to Raven. After each copying attempt, you will be prompted to enter your MPCDF password and the 2FA token.
 
 ```sh
 scp path_to_file_on_local_machine username@raven.mpcdf.mpg.de:/raven/u/username/

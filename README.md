@@ -1,11 +1,14 @@
-# Getting started: MPCDF Raven #
+# Getting started: MPCDF Raven HPC #
 
-This tutorial is written for the MPCDF Raven users from the MPI of Animal Behavior. It focuses on using R on Raven and provides specific instructions on how to run jobs that require popular spatio-temporal R packages. This tutorial has been put together and is maintained by the [Animal-Environment Interactions research group](https://www.ab.mpg.de/safi).
+This tutorial is written for the Max Planck Computing and Data Facility (MPCDF) Raven HPC users from the MPI of Animal Behavior. It focuses on using R on Raven and provides specific instructions on how to run jobs that require popular spatio-temporal R packages. This tutorial has been put together and is maintained by the [Animal-Environment Interactions research group](https://www.ab.mpg.de/safi).
 
 The Raven user guide can be found [here](https://docs.mpcdf.mpg.de/doc/computing/raven-user-guide.html#login)
 
 ## Overview of the workflow ##
-add text here ;)
+
+The Raven HPC system is a cluster of interconnected computers that is designed to process large amounts of data and perform complex computations. Raven's workflow involves submitting a job to the system, which is then processed in a queue.
+
+A job is a set of instructions that tells the system what computations to perform. It is submitted using a batch system, which allows the user to specify the resources needed to run the job, such as the number of processors, the amount of memory, and the amount of time needed to complete the job. When the job is completed, the results are stored in the file system for retrieval or later analysis.
 
 To make the whole process more enjoyable for yourself, have a look at these tutorials on [directory management in Unix](https://www.tutorialspoint.com/unix/unix-directories.htm) and [basics of shell scripting](https://www.tutorialspoint.com/unix/unix-what-is-shell.htm) if these topics are new to you.
 

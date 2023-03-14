@@ -161,6 +161,7 @@ The SLURM file is a shell program that contains instructions for the cluster and
 The script then continues with loading the required modules and running the R script. Load the same modules that you used in Step 5 when testing your code.
 
 ```sh
+# Load compiler and modules:
 module purge 
 module load R/4.2
 

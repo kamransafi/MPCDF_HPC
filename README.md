@@ -169,7 +169,7 @@ module load R/4.2
 R CMD BATCH your_R_script.R 2>&1 errorlog
 ```
 
-The ```2>&1 errorlog``` will write all messages that R produces while running your program (including warning and error messages) to an ```errorlog``` file. This is very helpful for debugging your code.
+The ```2>&1 errorlog``` command will write all messages that R produces while running your program (including warning and error messages) to an ```errorlog``` file. This is very helpful for debugging your code.
 
 
  ## Step 7: Submit your job ##

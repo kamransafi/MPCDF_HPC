@@ -135,7 +135,7 @@ Based on the resources that you need, your job will be either **exclusive**, whe
     exclusive gpu bw  72 / 144 in HT mode        4            500 GB         1-16       24:00:00
    ---------------------------------------------------------------------------------------------
 ```
-### The SLURM file ###
+### The SLURM script ###
 
 The SLURM file is a shell program that contains instructions for the cluster and the job that is to be run. Here is an example:
 
@@ -152,3 +152,11 @@ The SLURM file is a shell program that contains instructions for the cluster and
  sbatch your_slrm_script.slrm
  
  ```
+ 
+ Other useful commands:
+ 
+ ```sh
+squeue # Check the status of your job(s)
+scancel <job_id> # Cancel a job
+sinfo # List the available batch queues (partitions).
+```

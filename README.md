@@ -171,8 +171,11 @@ R CMD BATCH your_R_script.R 2>&1 errorlog
 
 The ```2>&1 errorlog``` command will write all messages that R produces while running your program (including warning and error messages) to an ```errorlog``` file. This is very helpful for debugging your code.
 
+Save your slurm script as: your_slrm_script.slrm
 
  ## Step 7: Submit your job ##
+ 
+Make sure that you have your slrm script, R script, and any input files on Raven. It's easier if they are all in one directory, which you can specify in your slurm script as your working directory.
  
  ```sh
  

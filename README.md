@@ -111,8 +111,11 @@ screen ???? # detach or use ctrl+AD
  
  ## Step 6: Prepare your slurm file ##
  
- 
- Overview of the available per-job resources on Raven:
+### Note on SLURM ###
+SLURM (Simple Linux Utility for Resource Management) is a job scheduler and resource manager used by the Raven HPC system. It is a software system that helps manage the allocation of computing resources (such as processors, memory, and storage) on a cluster of computers, so that jobs can be run efficiently and effectively.
+
+Based on the resources that you need, your job will be either **exclusive**, where all resources on the nodes are allocated to the job, or **shared**, where several jobs share the resources of one node. In this case it is necessary that the number of CPUs and the amount of memory are specified for each job. Overview of the available per-job resources on Raven is as follows. See the [Raven user guide](https://docs.mpcdf.mpg.de/doc/computing/raven-user-guide.html#login) for more information.
+
 ```
 
     Job type          Max. CPUs            Number of GPUs   Max. Memory      Number     Max. Run
@@ -132,6 +135,15 @@ screen ???? # detach or use ctrl+AD
     exclusive gpu bw  72 / 144 in HT mode        4            500 GB         1-16       24:00:00
    ---------------------------------------------------------------------------------------------
 ```
+### The SLURM file ###
+
+The SLURM file is a shell program that contains instructions for the cluster and the job that is to be run. Here is an example:
+
+
+ ```sh
+ 
+ 
+ ```
 
  ## Step 7: Submit your job ##
  

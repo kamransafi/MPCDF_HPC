@@ -137,13 +137,39 @@ Based on the resources that you need, your job will be either **exclusive**, whe
 ```
 ### The SLURM script ###
 
-The SLURM file is a shell program that contains instructions for the cluster and the job that is to be run. Here is an example:
-
+The SLURM file is a shell program that contains instructions for the cluster and the job that is to be run. The header includes the instructions. The lines starting with ```#SBATCH``` are SLURM directives. For example:
 
  ```sh
- 
+#!/bin/bash -l #specifies the shell to be used to run the script
+# Standard output and error:
+#SBATCH -o ./job.out.%j
+#SBATCH -e ./job.err.%j
+# Initial working directory:
+#SBATCH -D ./your_directory/ #This the direcotry where the files specific above (output and error files) will be stored.
+# Job Name:
+#SBATCH -J your_job_name
+# Number of nodes and tasks per node:
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=20
+#SBATCH --mail-type=all #this signifies that you will get an email when the job is started, failed, or completed
+#SBATCH --mail-user=your_email_address@ab.mpg.de
+# Wall clock limit (max. is 24 hours):
+#SBATCH --time=18:00:00
+#SBATCH --mem=120000
  
  ```
+The script then continues with loading the required modules and running the R script. Load the same modules that you used in Step 5 when testing your code.
+
+```sh
+module purge 
+module load R/4.2
+
+# Run the program:
+R CMD BATCH your_R_script.R 2>&1 errorlog
+```
+
+The ```2>&1 errorlog``` will write all messages that R produces while running your program (including warning and error messages) to an ```errorlog``` file. This is very helpful for debugging your code.
+
 
  ## Step 7: Submit your job ##
  

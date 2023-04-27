@@ -187,7 +187,7 @@ Make sure that you have your slrm script, R script, and any input files on Raven
  Other useful commands:
  
  ```sh
-squeue # Check the status of your job(s)
+squeue -u <user_name> # Check the status of your job(s)
 scancel <job_id> # Cancel a job
 sinfo # List the available batch queues (partitions).
 ```

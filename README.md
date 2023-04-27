@@ -191,3 +191,10 @@ squeue -u <user_name> # Check the status of your job(s)
 scancel <job_id> # Cancel a job
 sinfo # List the available batch queues (partitions).
 ```
+## Step 8: Transfer the output files ##
+
+Just like copying the files from the local system to Raven, to copy your files from Raven to your local machine can be done using ``` cp ``` or secure copy ```scp``` from your **local terminal**. After each copying attempt, you will be prompted to enter your MPCDF password and the 2FA token. You can copy an entire directory using ``` cp -r```.
+
+```sh
+scp username@raven.mpcdf.mpg.de:/raven/u/username/file_to_copy path_to_target_directory_on_local_machine
+```

@@ -102,12 +102,13 @@ screen ???? # detach or use ctrl+AD
  R
  ```
  
- Once in R, you can test your code to make sure that you can install the necessary libraries, read in your file, and overall make sure that your code (or a small version of it) works on the cluster. You will then have more confident in your code before submitting a batch job using the slurm batch system.
+Once in R, you can test your code to make sure that you can install the necessary libraries, read in your file, and overall make sure that your code (or a small version of it) works on the cluster. You will then have more confidence in your code before submitting a batch job using the slurm batch system.
  
  ```R
  install.packages("tidyverse")
  install.packages("move")
  ```
+DO NOT RUN long scripts or your entire job here! The node that you long into is only for editing and managing your data. If you run memory- or time-consuming jobs, you will get an email from the MPCDF asking you to stop the job. 
  
  ## Step 6: Prepare your slurm file ##
  

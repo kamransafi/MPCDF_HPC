@@ -256,6 +256,9 @@ srun apptainer exec geospatial_latest_updated.sif Rscript myproject/myscripts/my
 
 # Run the program if your data is on ptmp, it has to be mounted:
 srun apptainer exec --bind /ptmp/<your_username> geospatial_latest_updated.sif Rscript myproject/myscripts/my_R_script.r 
+
+# Run the program if job is submitted as an array:
+srun apptainer exec geospatial_latest_updated.sif Rscript myproject/myscripts/my_R_script.r $SLURM_ARRAY_TASK_ID
 ```
 
 ## Step 7: Submit your job

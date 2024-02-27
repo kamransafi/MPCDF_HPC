@@ -219,7 +219,7 @@ Description of options:
 ```sh
 #SBATCH --nodes=15 ## can be multiple nodes, but only when at least 50% of the cpus are requested, i.e. when "--cpus-per-task" 36 or more, if not job submission will give error
 #SBATCH --ntasks-per-node=10 ## can be multiple tasks per node, but can also be omitted and system will optimally distribute the jobs
-#SBATCH --cpus-per-task=12 ##this number of CPUs has to be the same as the one stated in the R script
+#SBATCH --cpus-per-task=36 ##this number of CPUs has to be the same as the one stated in the R script
 #SBATCH --array=1-300 ## this is the number of times your R code will be executed, the maximum is 300
 #SBATCH --mem=8000 ## what ever is required by your job. This is the memory per each instance (each time the R script is run)
 ```

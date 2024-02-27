@@ -1,7 +1,7 @@
 #!/bin/bash -l
 # Standard output and error, file will contain jobId number:
-#SBATCH -o ./messages/job.out_%A_%a # folder "messages" has to be created in home directory. The folder where these files go to can be costumized. This file contains the information on the job duration, how much memory it needed and the CPU utilization
-#SBATCH -e ./messages/job.err_%A_%a # this file contains everything that is being printed in the R console, therefore also the errors
+#SBATCH -o ./myproject/messages/job.out_%A_%a
+#SBATCH -e ./myproject/messages/job.err_%A_%a
 #
 # Initial working directory:
 #SBATCH -D ./ # when running the script on apptainer, the .sif file has to be found in this directory, unless you move it this will be home
@@ -10,20 +10,21 @@
 #SBATCH -J testingArrayJob
 #
 # Number of nodes and MPI tasks per node:
-#SBATCH --nodes=1 # it seems that in this case one could choose multiple nodes. We haven’t figured out yet under which conditions one should state several nodes
-#SBATCH --ntasks-per-node=1 
-#SBATCH --cpus-per-task=1  # a single job will always run on a single core, as far as I understood
-#SBATCH --array=1-300 # this is the number of times your R code will be executed, the maximum is 300
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=1 
+#SBATCH --array=1-5 # this is the number of times your R code will be executed, the maximum is 300
 #
 # set memory (in MB)
 #SBATCH --mem=8000  # if not using all CPUS per node, this is limited to 120GB. Set the memory according to what you think you will need, do test, and check in the out_jobid file created above the memory needed for a testrun. Remember that if you assign the entire memory of a node (e.g. 120Gb) but are only using 1 core, this will block the entire node. If you need that much memory, it is fine, but if not you’ll be only using 1/20 of the power. Try to optimize the memory you need, so you can use multiple cores per node. 
+#
+# Wall clock limit (max. is 24 hours):
+#SBATCH --time=00:02:00 # do not use 24h by default, try be state the time that you estimate that you actually need +20%
 #
 # email alert
 #SBATCH --mail-type=all # get email when job stats, ends, fails
 #SBATCH --mail-user=ascharf@ab.mpg.de
 #
-# Wall clock limit (max. is 24 hours):
-#SBATCH --time=00:05:00 # do not use 24h by default, try be state the time that you estimate that you actually need +20%
 
 
 # Load compiler and MPI modules:
@@ -31,5 +32,5 @@ module purge
 module load apptainer/1.2.2
 
 # Run the program:
-srun apptainer exec geospatial_latest_updated.sif Rscript testdata/arrayJob_apptainer.r $SLURM_ARRAY_TASK_ID
+srun apptainer exec geospatial_latest_updated.sif Rscript myproject/myscripts/arrayJob_apptainer.R $SLURM_ARRAY_TASK_ID
 # srun apptainer exec --bind /ptmp/<your_username> geospatial_latest.sif Rscript testdata/arrayJob_apptainer.r $SLURM_ARRAY_TASK_ID ## if you have your data on ptmp

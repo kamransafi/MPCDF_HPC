@@ -5,7 +5,7 @@ Several libraries like "sf", "units", "ctmm", are tricky to install on the clust
 One solution is resorting to a containerized solution, by work within a docker on the cluster. In the docker it is easy to install all packages needed without needing any workarounds. On the cluster this is done with apptainer (more details [here](https://docs.mpcdf.mpg.de/doc/computing/software/containers.html)). 
 
 
-### The frist time:
+### A. The frist time:
 
 1. login to you account in your terminal 
 - within the MPIAB network (also via VPN)
@@ -67,7 +67,7 @@ rm -rf foo
 ```
 
 
-### Thereafter if you need the install extra libraries again:
+### B. Thereafter if you need the install extra libraries again:
 
 1. login (see above)
 

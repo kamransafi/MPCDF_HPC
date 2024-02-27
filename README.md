@@ -148,7 +148,7 @@ A job submit will automatically choose the right partition and job parameters fr
 
 ### The SLURM script
 
-The SLURM file is a shell program that contains instructions for the cluster and the job that is to be run. The header includes the instructions. The lines starting with `#SBATCH` are SLURM directives. Here a detailed explanation of each of the elements contained in the scripts (also see example scripts): 
+The SLURM file is a shell program that contains instructions for the cluster and the job that is to be run. The header includes the instructions. The lines starting with `#SBATCH` are SLURM directives. Here a detailed explanation of each of the elements contained in the scripts (also see [example scripts](/example_scripts/)): 
 
 - specifies the shell to be used to run the script
 ```sh
@@ -161,6 +161,10 @@ The `job.err.%j` files contain everything that is being printed in the R console
 ```sh
 #SBATCH -o ./messages/job.out_%j
 #SBATCH -e ./messages/job.err_%j
+
+## if the job is an array:
+#SBATCH -o ./messages/job.out_%A_%a
+#SBATCH -e ./messages/job.err_%A_%a
 ```
 - Initial working directory. You can specify a directory in which the R and slrm file can be found and the folder where the output and error (from above) will be stored.
 ```sh
@@ -181,41 +185,43 @@ Description of options:
 **`--ntasks-per-node`**: this value cannot be greater than 72. In the case of an array job that has as input very heavy files, it might be worth while to state how many jobs should be done on a single node. When iterations of the same job run on different nodes, all files are copied to each node and that can take time. In all other cases, it is probably faster if the system distributes the jobs as space is made available.    
 **`--cpus-per-task`**: a single job will always run on a single core. If one is doing paralelization within the R script, here the number of CPUs should be specified. This number has to be the same as the one set in the R script via e.g. `doMC::registerDoMC()` or `doParallel::registerDoParallel()`.    
 **`--array`**: this is the number of times the R code will be executed. The maximum is 300 at a time. The numbers stated here will be the value "i" in the R script (see example file). If you have more than 300, you will have to submit the next job when the previous has finished, stating in the second one e.g. 301-600, and so on.    
-**`--mem`**: by limiting the memory of each job, the nodes can be shared for multiple jobs, of the same user or of different users. Set the memory according to what you think you will need, do tests, and check in the "job.out_jobId" file created above the memory needed for a test run (+~20%). Remember that if you assign the entire memory of a node (i.e. 120Gb) but are only using 1 CPU, this will block the entire node. If you need that much memory, it is fine, but if not you’ll be only using 1/20 of the power. Try to optimize the memory you need, so you can use multiple CPUs per node. 
+**`--mem`**: (in MB) by limiting the memory of each job, the nodes can be shared for multiple jobs, of the same user or of different users. Set the memory according to what you think you will need, do tests, and check in the "job.out_jobId" file created above the memory needed for a test run (+~20%). Remember that if you assign the entire memory of a node (i.e. 120Gb) but are only using 1 CPU, this will block the entire node. If you need that much memory, it is fine, but if not you’ll be only using 1/20 of the power. Try to optimize the memory you need, so you can use multiple CPUs per node. 
 
 
 **A. single job - R code is run once**: given that a single job always will run on one CPU, and therefore on 1 node
 
 ```sh
-#SBATCH --nodes=1 
-#SBATCH --ntasks-per-node=1 
-#SBATCH --cpus-per-task=1 
+#SBATCH --nodes=1 ## another value does not make sense
+#SBATCH --ntasks-per-node=1 ## another value does not make sense
+#SBATCH --cpus-per-task=1 ## another value does not make sense
 #SBATCH --mem=8000 ## what ever is required by your job 
 ```
-**B. parallelization type 1 - array job: R script runs multiple times**, each time with different input data. No paraleization in the R code.
+**B. parallelization type 1 - array job: R script runs multiple times**, each time with different input data. No parallelization in the R code.
 
 ```sh
-#SBATCH --nodes=5 ## can be multiple nodes, but option can also be omited and the system will optimaly distribute the jobs
+#SBATCH --nodes=1 ## another value does not make sense
 #SBATCH --ntasks-per-node=1 ## can be multiple tasks per node, but can also be omited and system will optimally distribute the jobs
-#SBATCH --cpus-per-task=1 ## given tht each R script run will be on once CPU
-#SBATCH --mem=8000 # what ever is required by your job. This is the memory per each instance (each time the R script is run)
+#SBATCH --cpus-per-task=1 ## another value does not make sense
+#SBATCH --array=1-300 # this is the number of times your R code will be executed, the maximum is 300
+#SBATCH --mem=8000 ## what ever is required by your job. This is the memory per each instance (each time the R script is run)
 ```
 
-**C. parallelization type 2: R script runs once, but there is paraleization in the R code**
+**C. parallelization type 2: R script runs once, but there is paralelization in the R code**
 
 ```sh
-#SBATCH --nodes=1
-#SBATCH --ntasks-per-node=1
+#SBATCH --nodes=1 ## another value does not make sense
+#SBATCH --ntasks-per-node=1 ## another value does not make sense
 #SBATCH --cpus-per-task=12 ##this number of CPUs has to be the same as the one stated in the R script
-#SBATCH --mem=8000 # what ever is required by your job.
+#SBATCH --mem=8000 ## what ever is required by your job.
 ```
-**D. array job with with parralelization within the R code**: combination of B and C
+**D. array job with with parallelization within the R code**: combination of B and C
 
 ```sh
-#SBATCH --nodes=15 ## can be multiple nodes, but option can also be omitted and the system will optimally distribute the jobs
+#SBATCH --nodes=15 ## can be multiple nodes, but only when at least 50% of the cpus are requested, i.e. when "--cpus-per-task" 36 or more, if not job submission will give error
 #SBATCH --ntasks-per-node=10 ## can be multiple tasks per node, but can also be omitted and system will optimally distribute the jobs
 #SBATCH --cpus-per-task=12 ##this number of CPUs has to be the same as the one stated in the R script
-#SBATCH --mem=8000 # what ever is required by your job. This is the memory per each instance (each time the R script is run)
+#SBATCH --array=1-300 ## this is the number of times your R code will be executed, the maximum is 300
+#SBATCH --mem=8000 ## what ever is required by your job. This is the memory per each instance (each time the R script is run)
 ```
 
 - Setting the max duration of each instance (max. is 24 hours). A single job (with internal parallelization or not) can run max. 24h. With array jobs, each instance can run max. 24. Use the information of the job.out_jobId file of the test run to estimate the necessary time. Do not use 24h by default, try be state the time that you estimate that you actually need +20%

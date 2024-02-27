@@ -109,4 +109,4 @@ rm -rf foo
 ## Example scripts:
 - R and .slurm script for one job
 - R and .slurm script for array jobs
-- R and .slurm script for one job/ array jobs with parralelization in the R script
+- R and .slurm script for one job with parralelization in the R script
